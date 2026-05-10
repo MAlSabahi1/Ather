@@ -1,0 +1,96 @@
+{% extends 'campaigns/base.html' %}
+
+{% block title %}تحليلات أثر | Athar{% endblock %}
+
+{% block content %}
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container-wide">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div class="space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-50 text-brand-600 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                    Personalized Intelligence
+                </div>
+                <h1 class="text-5xl font-black text-slate-900 tracking-tighter">مرحباً، {{ user.username }}</h1>
+                <p class="text-slate-500 text-lg font-medium">استعرض ملخص التحليلات للحملات التي قمت بمسحها مؤخراً.</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="{% url 'campaigns:search_home' %}" class="px-10 py-4 bg-slate-950 text-white rounded-[1.5rem] font-black text-sm shadow-xl active:scale-95 transition-all">بدء مسح جديد</a>
+            </div>
+        </div>
+
+        <!-- Global User Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="premium-card p-10 rounded-[3rem] bg-white text-right space-y-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">إجمالي عمليات المسح</p>
+                <h3 class="text-5xl font-black text-slate-900">{{ total_campaigns }}</h3>
+                <div class="w-full h-1 bg-slate-50 rounded-full">
+                    <div class="h-full bg-brand-600 rounded-full" style="width: 70%"></div>
+                </div>
+            </div>
+            <div class="premium-card p-10 rounded-[3rem] bg-white text-right space-y-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">إجمالي الوصول المرصود</p>
+                <h3 class="text-5xl font-black text-slate-900">{{ total_reach|floatformat:0 }}</h3>
+                <div class="w-full h-1 bg-slate-50 rounded-full">
+                    <div class="h-full bg-indigo-600 rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="premium-card p-10 rounded-[3rem] bg-white text-right space-y-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">متوسط التفاعل</p>
+                <h3 class="text-5xl font-black text-brand-600">{{ total_engagement|floatformat:0 }}</h3>
+                <div class="w-full h-1 bg-slate-50 rounded-full">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal History Table -->
+        <div class="premium-card rounded-[3.5rem] bg-white overflow-hidden">
+            <div class="p-10 border-b border-slate-50 flex justify-between items-center">
+                <h2 class="text-2xl font-black text-slate-900">سجل تحليلاتك الشخصية</h2>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">آخر 10 عمليات</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-right">
+                    <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        <tr>
+                            <th class="px-10 py-6">الحملة</th>
+                            <th class="px-10 py-6">المنصة</th>
+                            <th class="px-10 py-6">الوصول</th>
+                            <th class="px-10 py-6">درجة النجاح</th>
+                            <th class="px-10 py-6">النظرية</th>
+                            <th class="px-10 py-6"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        {% for item in history %}
+                        <tr class="group hover:bg-slate-50/50 transition-colors">
+                            <td class="px-10 py-8">
+                                <p class="font-black text-slate-900">{{ item.search_query }}</p>
+                                <p class="text-[10px] text-slate-400 font-bold mt-1">{{ item.created_at|date:"d M Y" }}</p>
+                            </td>
+                            <td class="px-10 py-8">
+                                <span class="px-3 py-1 bg-slate-100 rounded-lg text-[10px] font-black text-slate-600 uppercase">{{ item.platform }}</span>
+                            </td>
+                            <td class="px-10 py-8 font-bold text-slate-700">{{ item.campaign.reach|floatformat:0 }}</td>
+                            <td class="px-10 py-8">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                        <div class="h-full bg-brand-600" style="width: {{ item.campaign.success_rate }}%"></div>
+                                    </div>
+                                    <span class="text-xs font-black text-brand-600">{{ item.campaign.success_rate }}%</span>
+                                </div>
+                            </td>
+                            <td class="px-10 py-8 text-xs font-bold text-slate-500">{{ item.campaign.media_theory }}</td>
+                            <td class="px-10 py-8 text-left">
+                                <a href="{% url 'campaigns:search_results' %}?q={{ item.search_query }}&platform={{ item.platform }}" class="px-6 py-2 bg-slate-900 text-white text-[10px] font-black rounded-xl hover:bg-brand-600 transition-all opacity-0 group-hover:opacity-100">عرض التفاصيل</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'campaigns/base.html' %}
+
+{% block title %}إضافة حملة جديدة | DigitalAnalysis{% endblock %}
+
+{% block content %}
+<div class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+    <!-- Stepper Header -->
+    <div class="mb-10">
+        <h1 class="text-3xl font-bold text-slate-900 mb-2">تحليل حملة رقمية جديدة</h1>
+        <p class="text-slate-500">أدخل بيانات الحملة وسيقوم النظام بتحليلها علمياً بناءً على النظريات الإعلامية.</p>
+        
+        <div class="mt-8 flex items-center justify-between relative">
+            <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2 z-0"></div>
+            <div id="progress-bar" class="absolute top-1/2 left-0 w-0 h-0.5 bg-indigo-600 -translate-y-1/2 z-0 transition-all duration-500"></div>
+            
+            <div class="step-icon active bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center relative z-10 font-bold border-4 border-white shadow-lg">1</div>
+            <div class="step-icon bg-white text-slate-400 w-10 h-10 rounded-full flex items-center justify-center relative z-10 font-bold border-4 border-slate-100 shadow-sm">2</div>
+            <div class="step-icon bg-white text-slate-400 w-10 h-10 rounded-full flex items-center justify-center relative z-10 font-bold border-4 border-slate-100 shadow-sm">3</div>
+        </div>
+        <div class="flex justify-between mt-2 text-xs font-bold text-slate-500">
+            <span>المعلومات العامة</span>
+            <span>مؤشرات الأداء (KPIs)</span>
+            <span>التقييم العلمي</span>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="glass-card rounded-3xl p-8 md:p-12">
+        <form method="post" id="campaignForm">
+            {% csrf_token %}
+            
+            <!-- Step 1: General Info -->
+            <div id="step-1" class="step-content space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">اسم الحملة</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">المنصة</label>
+                        {{ form.platform }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">تاريخ البدء</label>
+                        {{ form.start_date }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">تاريخ الانتهاء</label>
+                        {{ form.end_date }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Metrics -->
+            <div id="step-2" class="step-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">عدد الوصول (Reach)</label>
+                        {{ form.reach }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-slate-700">عدد التفاعل (Engagement)</label>
+                        {{ form.engagement }}
+                    </div>
+                </div>
+                <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-700 text-sm">
+                    💡 <strong>ملاحظة:</strong> سيتم استخدام هذه الأرقام لاقتراح النظرية الإعلامية الأنسب تلقائياً.
+                </div>
+            </div>
+
+            <!-- Step 3: Theory & Eval -->
+            <div id="step-3" class="step-content hidden space-y-6">
+                <div class="space-y-2">
+                    <label class="text-sm font-bold text-slate-700">النظرية الإعلامية</label>
+                    {{ form.media_theory }}
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-bold text-slate-700">التقييم العلمي المقترح</label>
+                    {{ form.scientific_evaluation }}
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="mt-12 flex justify-between items-center">
+                <button type="button" id="prevBtn" class="hidden px-8 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-all">السابق</button>
+                <div class="flex-grow"></div>
+                <button type="button" id="nextBtn" class="px-8 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">التالي</button>
+                <button type="submit" id="submitBtn" class="hidden px-8 py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200">حفظ وتحليل</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const steps = document.querySelectorAll('.step-content');
+    const stepIcons = document.querySelectorAll('.step-icon');
+    const progressBar = document.getElementById('progress-bar');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    let currentStep = 0;
+
+    function updateStepper() {
+        steps.forEach((step, index) => {
+            step.classList.toggle('hidden', index !== currentStep);
+        });
+
+        stepIcons.forEach((icon, index) => {
+            if (index <= currentStep) {
+                icon.classList.add('bg-indigo-600', 'text-white', 'border-white');
+                icon.classList.remove('bg-white', 'text-slate-400', 'border-slate-100');
+            } else {
+                icon.classList.remove('bg-indigo-600', 'text-white', 'border-white');
+                icon.classList.add('bg-white', 'text-slate-400', 'border-slate-100');
+            }
+        });
+
+        progressBar.style.width = `${(currentStep / (steps.length - 1)) * 100}%`;
+        
+        prevBtn.classList.toggle('hidden', currentStep === 0);
+        if (currentStep === steps.length - 1) {
+            nextBtn.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+        }
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            updateStepper();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            updateStepper();
+        }
+    });
+</script>
+{% endblock %}

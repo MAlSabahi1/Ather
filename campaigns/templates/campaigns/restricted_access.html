@@ -1,0 +1,22 @@
+{% extends 'campaigns/base.html' %}
+
+{% block title %}الوصول مقيد | DigitalAnalysis{% endblock %}
+
+{% block content %}
+<div class="min-h-[60vh] flex flex-col items-center justify-center space-y-8 text-center">
+    <div class="w-24 h-24 bg-amber-50 rounded-full flex items-center justify-center text-amber-500 mb-4 animate-bounce">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 0v2m0-2h2m-2 0H10m11 1a9 9 0 11-18 0 9 9 0 0118 0zM12 9V7m0 2v2"></path>
+        </svg>
+    </div>
+    
+    <div class="space-y-4">
+        <h1 class="text-3xl font-black text-slate-900">لوحة البيانات مقفلة حالياً</h1>
+        <p class="text-slate-500 max-w-md mx-auto">لتفعيل الرسوم البيانية والمخططات المتقدمة، يجب عليك أولاً إجراء عملية بحث (Scanning) ناجحة عن حملة رقمية واحدة على الأقل.</p>
+    </div>
+
+    <a href="{% url 'campaigns:search_home' %}" class="px-12 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200">
+        ابدأ أول عملية بحث الآن
+    </a>
+</div>
+{% endblock %}

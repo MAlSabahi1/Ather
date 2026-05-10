@@ -1,0 +1,431 @@
+{% extends 'campaigns/base.html' %}
+
+{% block title %}تقرير التحليل الاستراتيجي | {{ display_name }}{% endblock %}
+
+{% block content %}
+<div class="bg-[#f8fafc] min-h-screen py-12 bg-mesh">
+    <div class="container-wide space-y-10 animate-fade-in">
+        
+        <!-- 1. Header: The Strategic Identity (Refined) -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-[3rem] p-12 border border-white shadow-2xl shadow-slate-200/50 text-center space-y-6 relative overflow-hidden">
+            <!-- Decorative Background Element -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+            
+            <div class="relative z-10 space-y-4">
+                <h1 class="text-5xl font-black text-slate-950 tracking-tighter leading-tight">{{ display_name }}</h1>
+                <div class="flex items-center justify-center gap-8 pt-4">
+                    <div class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-brand-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">منصة التحليل</p>
+                            <p class="text-sm font-black text-slate-900">{{ campaign.platform_display }}</p>
+                        </div>
+                    </div>
+                    <div class="w-px h-10 bg-slate-100"></div>
+                    <div class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-brand-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">تاريخ الرصد</p>
+                            <p class="text-sm font-black text-slate-900">{{ campaign.start_date|date:"d M Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Core Metrics: High-Impact Visuals -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Metric Card -->
+            <div class="premium-card p-10 rounded-[2.5rem] bg-white group hover:border-brand-500/30 transition-all duration-500">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">إجمالي الوصول</p>
+                        <div class="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-300 group-hover:text-brand-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-black text-slate-950 tracking-tighter">{{ campaign.reach|floatformat:0 }}</p>
+                </div>
+            </div>
+
+            <!-- Metric Card -->
+            <div class="premium-card p-10 rounded-[2.5rem] bg-white group">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">حجم التفاعل</p>
+                        <div class="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-300 group-hover:text-pink-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-black text-slate-950 tracking-tighter">{{ campaign.engagement|floatformat:0 }}</p>
+                    <div class="pt-2">
+                        <div class="w-full h-1 bg-slate-50 rounded-full">
+                            <div class="h-full bg-slate-200 w-2/3 rounded-full group-hover:bg-brand-500 transition-all duration-700"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metric Card -->
+            <div class="premium-card p-10 rounded-[2.5rem] bg-white group">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">معدل التأثير</p>
+                        <div class="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-300 group-hover:text-indigo-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-4xl font-black text-brand-600 tracking-tighter">{{ campaign.engagement_rate }}%</p>
+                </div>
+            </div>
+
+            <!-- Metric Card (Success Highlight) -->
+            <div class="premium-card p-10 rounded-[2.5rem] bg-slate-950 text-white relative overflow-hidden group border-none">
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-600/20 to-transparent"></div>
+                <div class="relative z-10 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-black text-brand-400 uppercase tracking-[0.2em]">درجة النجاح</p>
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-brand-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.143-5.714L5 12l5.714-2.143L13 3z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-5xl font-black text-white tracking-tighter">{{ campaign.success_rate }}%</p>
+                    <div class="w-full h-1 bg-white/10 rounded-full mt-2">
+                        <div class="h-full bg-brand-500 w-[{{ campaign.success_rate }}%] rounded-full shadow-[0_0_15px_rgba(51,84,255,0.8)]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Visual Intelligence: Real-time Data Visualization -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sentiment Breakdown -->
+            <div class="bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl shadow-slate-200/30 space-y-8 flex flex-col">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900 tracking-tight">تحليل المشاعر</h3>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Sentiment Analysis</p>
+                    </div>
+                    <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                </div>
+                <div id="sentimentChart" class="flex-grow min-h-[300px]"></div>
+                <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-50">
+                    <div class="text-center">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-1">إيجابي</p>
+                        <p class="text-lg font-black text-emerald-600">64%</p>
+                    </div>
+                    <div class="text-center border-x border-slate-100">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-1">محايد</p>
+                        <p class="text-lg font-black text-slate-400">22%</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-1">سلبي</p>
+                        <p class="text-lg font-black text-rose-500">14%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engagement Trend -->
+            <div class="lg:col-span-2 bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl shadow-slate-200/30 space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900 tracking-tight">منحنى التفاعل الرقمي</h3>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Daily Engagement Flow</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 px-3 py-1.5 bg-brand-50 rounded-lg">
+                            <div class="w-2 h-2 bg-brand-600 rounded-full"></div>
+                            <span class="text-[10px] font-black text-brand-600 uppercase">مباشر</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="trendChart" class="h-[350px]"></div>
+            </div>
+
+            <!-- Demographic Breakdown -->
+            <div class="lg:col-span-2 bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl shadow-slate-200/30 space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900 tracking-tight">التركيبة الديموغرافية</h3>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Audience Demographics</p>
+                    </div>
+                    <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                </div>
+                <div id="demographicChart" class="h-[300px]"></div>
+            </div>
+
+            <!-- Influence Radar -->
+            <div class="bg-slate-950 rounded-[3rem] p-10 border-none shadow-2xl shadow-slate-300 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-600/10 to-transparent"></div>
+                <div class="relative z-10 space-y-8 h-full flex flex-col">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-xl font-black text-white tracking-tight">مؤشرات التأثير</h3>
+                            <p class="text-[9px] font-black text-brand-400 uppercase tracking-widest mt-1">Impact Vectors</p>
+                        </div>
+                        <div class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-brand-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div id="radarChart" class="flex-grow"></div>
+                    <p class="text-[10px] font-bold text-slate-500 leading-relaxed text-center px-4">
+                        تم رصد أعلى مستويات التأثير في محور "الانتشار العضوي" مما يعزز استدامة الرسالة.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Analytical Engine: The Scientific Core -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Media Theory Block -->
+            <div class="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/40 relative group overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                    <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </div>
+                <div class="relative z-10 space-y-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-brand-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.168.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900">النظرية الإعلامية المفسرة</h2>
+                        </div>
+                    </div>
+                    <div class="p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+                        <h4 class="text-2xl font-black text-brand-600 mb-4">{{ campaign.media_theory }}</h4>
+                        <p class="text-slate-500 text-base font-medium leading-relaxed">
+                            تم تحليل الحملة وتصنيف سلوكها الجماهيري بناءً على مبادئ هذه النظرية، مما يتيح فهماً أعمق لطريقة تلقي الرسائل وتحولها إلى مواقف سلوكية.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scientific Evaluation Block -->
+            <div class="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/40 relative group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-50/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div class="relative z-10 space-y-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-slate-950 rounded-2xl flex items-center justify-center text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900">التقييم العلمي الدقيق</h2>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -right-4 top-0 text-6xl text-slate-100 font-serif">"</div>
+                        <p class="text-xl font-bold text-slate-700 leading-[2] pr-4 relative z-10">
+                            {{ campaign.scientific_evaluation }}
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 pt-4">
+                        <div class="flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-xl text-[10px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-100">
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                            تفاعل مستهدف
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-xl text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100">
+                            <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                            كفاءة المضمون
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Strategic Intelligence: Final Recommendations -->
+        <div class="bg-white rounded-[3.5rem] p-16 border border-slate-100 shadow-2xl shadow-slate-200/50">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <h2 class="text-4xl font-black text-slate-950 tracking-tighter">الخلاصة الاستراتيجية</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">أبرز المكتسبات</p>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4 p-5 bg-emerald-50/30 rounded-2xl border border-emerald-100/50 hover:scale-[1.02] transition-transform">
+                                <svg class="w-5 h-5 text-emerald-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm font-bold text-slate-700 leading-relaxed">تحقيق نسبة وصول عضوية تتجاوز المعدل الطبيعي لمنصة {{ campaign.platform_display }}.</span>
+                            </li>
+                            <li class="flex items-start gap-4 p-5 bg-emerald-50/30 rounded-2xl border border-emerald-100/50 hover:scale-[1.02] transition-transform">
+                                <svg class="w-5 h-5 text-emerald-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm font-bold text-slate-700 leading-relaxed">بناء تفاعل إيجابي يعزز من سمعة العلامة التجارية بشكل مستدام.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-amber-500 rounded-full"></div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">التطوير المقترح</p>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4 p-5 bg-amber-50/30 rounded-2xl border border-amber-100/50 hover:scale-[1.02] transition-transform">
+                                <svg class="w-5 h-5 text-amber-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <span class="text-sm font-bold text-slate-700 leading-relaxed">توسيع نطاق التفاعل ليشمل شرائح ديموغرافية أكثر تنوعاً في الحملات القادمة.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Final Actions: Luxury Controls -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10 pb-20">
+            <button class="w-full sm:w-auto px-16 py-6 bg-slate-950 text-white rounded-[2rem] font-black text-xs hover:bg-brand-600 transition-all shadow-2xl shadow-slate-300 hover:shadow-brand-200 active:scale-95 flex items-center justify-center gap-3">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                تصدير التقرير كـ PDF
+            </button>
+            <a href="{% url 'campaigns:search_home' %}" class="w-full sm:w-auto px-16 py-6 bg-white text-slate-900 border border-slate-100 rounded-[2rem] font-black text-xs hover:bg-slate-50 transition-all text-center shadow-xl shadow-slate-100">
+                إجراء مسح رقمي جديد
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Shared Config
+        const isDark = true;
+        const brandColor = '#3354ff';
+        
+        // 1. Sentiment Chart
+        const sentimentOptions = {
+            series: [64, 22, 14],
+            chart: { type: 'donut', height: 320, fontFamily: 'Tajawal' },
+            labels: ['إيجابي', 'محايد', 'سلبي'],
+            colors: ['#10b981', '#94a3b8', '#f43f5e'],
+            legend: { show: false },
+            dataLabels: { enabled: false },
+            stroke: { show: false },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '85%',
+                        labels: {
+                            show: true,
+                            name: { show: true, fontSize: '12px', fontWeight: 900, color: '#64748b' },
+                            value: { show: true, fontSize: '24px', fontWeight: 900, color: '#0f172a' },
+                            total: {
+                                show: true,
+                                label: 'المتوسط',
+                                formatter: function (w) { return '64%' }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        new ApexCharts(document.querySelector("#sentimentChart"), sentimentOptions).render();
+
+        // 2. Trend Chart
+        const trendOptions = {
+            series: [{
+                name: 'التفاعل اليومي',
+                data: [31, 40, 28, 51, 42, 109, 100].map(v => v * ({{ campaign.success_rate }} / 50))
+            }],
+            chart: { 
+                type: 'area', 
+                height: 350, 
+                toolbar: { show: false },
+                fontFamily: 'Tajawal',
+                zoom: { enabled: false }
+            },
+            colors: [brandColor],
+            fill: {
+                type: 'gradient',
+                gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] }
+            },
+            dataLabels: { enabled: false },
+            stroke: { curve: 'smooth', width: 4 },
+            xaxis: {
+                categories: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+                axisBorder: { show: false },
+                axisTicks: { show: false }
+            },
+            yaxis: { show: false },
+            grid: { borderColor: '#f1f5f9', strokeDashArray: 4 }
+        };
+        new ApexCharts(document.querySelector("#trendChart"), trendOptions).render();
+
+        // 3. Demographic Chart
+        const demoOptions = {
+            series: [{
+                name: 'ذكر',
+                data: [44, 55, 41, 37, 22, 43]
+            }, {
+                name: 'أنثى',
+                data: [33, 32, 33, 52, 13, 44]
+            }],
+            chart: { type: 'bar', height: 300, stacked: true, toolbar: { show: false }, fontFamily: 'Tajawal' },
+            colors: [brandColor, '#94a3b8'],
+            plotOptions: { bar: { horizontal: false, borderRadius: 8, columnWidth: '35%' } },
+            dataLabels: { enabled: false },
+            xaxis: {
+                categories: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'],
+                axisBorder: { show: false },
+                axisTicks: { show: false }
+            },
+            legend: { position: 'top', horizontalAlign: 'right', fontWeight: 900 },
+            grid: { borderColor: '#f1f5f9' }
+        };
+        new ApexCharts(document.querySelector("#demographicChart"), demoOptions).render();
+
+        // 4. Radar Chart
+        const radarOptions = {
+            series: [{
+                name: 'مستوى التأثير',
+                data: [80, 50, 70, 40, 100, 20],
+            }],
+            chart: { type: 'radar', height: 350, toolbar: { show: false }, fontFamily: 'Tajawal' },
+            colors: [brandColor],
+            stroke: { width: 3 },
+            fill: { opacity: 0.2 },
+            markers: { size: 4, colors: ['#fff'], strokeColor: brandColor, strokeWidth: 2 },
+            xaxis: {
+                categories: ['المحتوى', 'الوصول', 'التوقيت', 'التفاعل', 'الانتشار', 'الاستدامة'],
+                labels: { style: { colors: ['#94a3b8'], fontSize: '10px', fontWeight: 900 } }
+            },
+            yaxis: { show: false }
+        };
+        new ApexCharts(document.querySelector("#radarChart"), radarOptions).render();
+    });
+</script>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    
+    .bg-mesh {
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(51, 84, 255, 0.03) 0, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.03) 0, transparent 50%),
+            radial-gradient(at 50% 100%, rgba(51, 84, 255, 0.02) 0, transparent 50%);
+    }
+    
+    /* ApexCharts Customization */
+    .apexcharts-canvas { margin: 0 auto; }
+    .apexcharts-tooltip {
+        background: rgba(2, 6, 23, 0.95) !important;
+        border: none !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 12px !important;
+        color: white !important;
+    }
+</style>
+{% endblock %}

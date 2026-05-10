@@ -1,0 +1,93 @@
+{% extends 'campaigns/base.html' %}
+
+{% block title %}إنشاء حساب | أثر - Athar{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col lg:flex-row relative overflow-hidden bg-white">
+    <!-- Left Side: Brand Experience (Horizontal Flow) -->
+    <div class="hidden lg:flex lg:w-1/2 relative bg-slate-950 items-center justify-center p-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0); background-size: 40px 40px;"></div>
+        <div class="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[120px]"></div>
+        
+        <div class="relative z-10 space-y-12 text-right">
+            <div class="inline-block px-5 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-[10px] font-black text-brand-400 uppercase tracking-[0.3em]">
+                انضم لمجتمع أثر
+            </div>
+            <h1 class="text-7xl font-black text-white leading-tight tracking-tighter">
+                ابدأ رحلة <br>
+                <span class="text-slate-500 underline decoration-brand-600/30 underline-offset-8">الذكاء المعرفي</span>
+            </h1>
+            <p class="text-slate-400 text-2xl font-medium leading-relaxed max-w-xl opacity-80 pr-6 border-r-4 border-brand-600">
+                كن جزءاً من منصة التحليل الإعلامي الأكثر تقدماً، واستفد من أدواتنا الذكية في فهم اتجاهات الرأي العام.
+            </p>
+        </div>
+    </div>
+
+    <!-- Right Side: Signup Form Hub -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16 bg-white relative">
+        <div class="max-w-sm w-full space-y-10">
+            <div class="space-y-3 text-right">
+                <div class="lg:hidden w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-4xl font-black text-slate-950 tracking-tighter">إنشاء حساب</h2>
+                <p class="text-slate-500 text-base font-medium opacity-80">ابدأ الآن في بناء لوحة تحليلاتك</p>
+            </div>
+
+            <form class="space-y-6" method="POST">
+                {% csrf_token %}
+                <div class="space-y-5">
+                    {% for field in form %}
+                    <div class="group">
+                        <label for="{{ field.id_for_label }}" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block transition-colors group-focus-within:text-brand-600">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <p class="text-red-500 text-[10px] font-bold mt-2 pr-2">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="w-full py-6 bg-slate-950 text-white rounded-2xl font-black text-base hover:bg-brand-600 transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3">
+                    إنشاء الحساب الآن
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+            </form>
+
+            <div class="text-right pt-6">
+                <p class="text-sm text-slate-500 font-medium">
+                    لديك حساب بالفعل؟ 
+                    <a href="{% url 'campaigns:login' %}" class="font-bold text-brand-600 hover:text-brand-500 underline underline-offset-4">تسجيل الدخول</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input {
+        width: 100%;
+        padding: 1.25rem;
+        background: #f8fafc;
+        border: 2px solid transparent;
+        border-radius: 1.25rem;
+        outline: none;
+        font-weight: 700;
+        transition: all 0.3s;
+    }
+    input:focus {
+        background: white;
+        border-color: #3354ff;
+        box-shadow: 0 10px 20px -10px rgba(51, 84, 255, 0.2);
+    }
+    ul { list-style: none; padding: 0; margin-top: 5px; }
+    li { font-size: 9px; color: #94a3b8; font-weight: bold; }
+</style>
+{% endblock %}
